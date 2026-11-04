@@ -2,17 +2,18 @@ backend:
   name: git-gateway
   branch: main
 
-media_folder: "img/news"
-public_folder: "/img/news"
+media_folder: "img/news" 
+public_folder: "/img/news" 
 
 collections:
   - name: "news"
     label: "Notícias (News)"
-    files:
-      - name: "news_page"
-        label: "Gerenciar Página de Notícias"
-        file: "news.html"
-        fields:
-          - label: "Conteúdo da Página"
-            name: "body"
-            widget: "markdown"
+    folder: "content/news"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - {label: "Título", name: "title", widget: "string"}
+      - {label: "Data", name: "date", widget: "datetime", format: "YYYY-MM-DD"}
+      - {label: "Subtítulo (opcional)", name: "subtitle", widget: "string", required: false}
+      - {label: "Foto da Notícia", name: "image", widget: "image", required: false}
+      - {label: "Texto da Notícia", name: "body", widget: "markdown"}
