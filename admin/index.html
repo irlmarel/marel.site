@@ -7,13 +7,12 @@
   <title>Content Manager - IRL MAREL</title>
 </head>
 <body>
-  <!-- Onde o CMS vai se instalar -->
   <div id="nc-root"></div>
 
   <!-- Script do Netlify Identity -->
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   
-  <!-- Script para processar o token do convite automaticamente -->
+  <!-- Script para gerenciar redirecionamento pós-login -->
   <script>
     if (window.netlifyIdentity) {
       window.netlifyIdentity.on("init", user => {
