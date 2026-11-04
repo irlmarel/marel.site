@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Contact the IRL MAREL - Marine Eutrophication Lab (CNRS, UERJ, UFF).">
+  <meta name="keywords" content="MAREL contact, IRL MAREL, CNRS, UERJ, UFF, tropical eutrophication">
+  <meta name="author" content="IRL MAREL">
+
+  <meta property="og:title" content="Contact - IRL MAREL">
+  <meta property="og:description" content="Get in touch with the IRL MAREL team.">
+  <meta property="og:image" content="img/logo-marel-horizontal.png">
+  <meta property="og:type" content="website">
+
+  <title>Contact - IRL MAREL</title>
+
+  <link rel="icon" type="image/png" href="img/logo-icon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <a href="#main" class="skip-link">Skip to main content</a>
+
+  <!-- =============================================
+       HEADER
+       ============================================= -->
+  <header class="header">
+    <div class="header__inner">
+      <a href="index.html" class="header__logo" aria-label="MAREL Home">
+        <img src="img/logo-marel-horizontal.png" alt="MAREL logo">
+        <div class="header__logo-text">
+          <strong>MAREL</strong>
+          <span>Marine Eutrophication Lab</span>
+        </div>
+      </a>
+
+      <button class="header__toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <nav class="header__nav" aria-label="Main navigation">
+        <a href="index.html">Home</a>
+        <a href="about.html">International Research Laboratory</a>
+        <a href="members.html">Members</a>
+        <a href="projects.html">Projects</a>
+        <a href="publications.html">Publications</a>
+        <a href="news.html">News</a>
+        <a href="contactus.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- =============================================
+       PAGE HEADER
+       ============================================= -->
+  <section class="page-header">
+    <div class="container">
+      <h1>Contact us</h1>
+      <p>
+        For scientific inquiries, collaborations, or any question about the IRL MAREL,
+        please use the form below.
+      </p>
+    </div>
+  </section>
+
+  <!-- =============================================
+       FORM
+       ============================================= -->
+  <section class="section" id="main">
+    <div class="container">
+
+      <!-- Mensagem de status (sucesso/erro) -->
+      <div id="form-status" class="form__status" role="alert"></div>
+
+      <!--
+        =====================================================
+        FORMULÁRIO DE CONTATO — FORMSPREE
+        =====================================================
+        O endpoint abaixo aponta para a conta Formspree do MAREL.
+        O e-mail que recebe as mensagens é:
+          marelirlcnrsuffuerj@gmail.com
+
+        IMPORTANTE:
+        1. O professor Gwenaël precisa confirmar o e-mail no painel
+           do Formspree (Settings → Email) para ativar o envio.
+        2. Este formulário usa o padrão AJAX do Formspree (sem
+           recarregar a página) — veja o código no final do arquivo.
+        3. Se preferir o envio "clássico" (com recarregamento),
+           basta remover o script do final e o formulário funcionará
+           normalmente redirecionando para uma página do Formspree.
+        =====================================================
+      -->
+      <form
+        id="contact-form"
+        class="form"
+        action="https://formspree.io/f/mjyvnjwv"
+        method="POST"
+        novalidate
+      >
+
+        <!-- Campo oculto para assunto do e-mail -->
+        <input type="hidden" name="_subject" value="New message from the MAREL website">
+
+        <!-- Campo anti-spam do Formspree (honeypot) -->
+        <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
+
+        <div class="form__group">
+          <label for="name" class="form__label">
+            Name <span class="required">*</span>
+          </label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            class="form__input"
+            placeholder="Your full name"
+            required
+          >
+        </div>
+
+        <div class="form__group">
+          <label for="email" class="form__label">
+            Email <span class="required">*</span>
+          </label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            class="form__input"
+            placeholder="your.email@example.com"
+            required
+          >
+        </div>
+
+        <div class="form__group">
+          <label for="institution" class="form__label">
+            Institution / Affiliation
+          </label>
+          <input
+            type="text"
+            id="institution"
+            name="institution"
+            class="form__input"
+            placeholder="University, research center, etc. (optional)"
+          >
+        </div>
+
+        <div class="form__group">
+          <label for="subject" class="form__label">
+            Subject <span class="required">*</span>
+          </label>
+          <select id="subject" name="subject" class="form__select" required>
+            <option value="" disabled selected>Select a subject…</option>
+            <option value="Scientific inquiry">Scientific inquiry</option>
+            <option value="Collaboration">Collaboration / partnership</option>
+            <option value="PhD / Post-doc opportunity">PhD / Post-doc opportunity</option>
+            <option value="Press / Media">Press / Media</option>
+            <option value="Website feedback">Website feedback</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
+        <div class="form__group">
+          <label for="message" class="form__label">
+            Message <span class="required">*</span>
+          </label>
+          <textarea
+            id="message"
+            name="message"
+            class="form__textarea"
+            placeholder="Write your message here…"
+            required
+          ></textarea>
+        </div>
+
+        <div class="form__actions">
+          <button type="submit" class="btn btn--primary">Send message</button>
+        </div>
+
+        <p class="form__note">
+          <span class="required">*</span> Required fields.
+          Your message will be sent to <strong>marelirlcnrsuffuerj@gmail.com</strong>.
+        </p>
+
+      </form>
+
+    </div>
+  </section>
+
+ <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div>
+          <h4>IRL MAREL</h4>
+          <p>
+            IRL 2036 MAREL<br>
+            Marine Eutrophication Lab<br>
+            International Research Laboratory<br>
+            CNRS &middot; UERJ &middot; UFF <br>
+            UERJ Campus Maracanã <br>
+            Rua São Francisco Xavier, 524 <br>
+            4º Andar, sala 4017E, CEP 20550-900<br>
+            Rio de Janeiro, Brazil.<br>         
+          </p>
+        </div>
+        <div>
+          <h4>Institutions</h4>
+          <div class="footer__logos">
+            <a href="https://www.cnrs.fr/" target="_blank" rel="noopener" title="CNRS"><img src="img/logos/cnrs.png" alt="CNRS"></a>
+            <a href="https://www.uerj.br/" target="_blank" rel="noopener" title="UERJ"><img src="img/logos/uerj.png" alt="UERJ"></a>
+            <a href="https://www.uff.br/" target="_blank" rel="noopener" title="UFF"><img src="img/logos/uff.png" alt="UFF"></a>
+          </div>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        &copy; <span id="year"></span> IRL MAREL &middot; Marine Eutrophication Lab. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  <script src="js/script.js"></script>
+</body>
+</html>
