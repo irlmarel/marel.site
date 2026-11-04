@@ -1,0 +1,18 @@
+backend:
+  name: git-gateway
+  branch: main 
+
+media_folder: "img/news"
+public_folder: "/img/news"
+
+collections:
+  - name: "news"
+    label: "Notícias (News)"
+    files:
+      - name: "news_page"
+        label: "Gerenciar Página de Notícias"
+        file: "news.html"
+        fields:
+          - label: "Conteúdo da Página"
+            name: "body"
+            widget: "markdown"
