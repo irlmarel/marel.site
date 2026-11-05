@@ -1,8 +1,8 @@
 ---
 title: New Research on eutrophication biomonitoring
 date: 2026-02-01
-image: /img/news/news-erbas-et-al-2026-copie-2.jpeg
+image: ""
 ---
-A collaborative study published in *Marine Environmental Research* highlights the brown mussel (*Perna perna*) as a powerful bioindicator for monitoring eutrophication in tropical coastal ecosystems. By combining stable isotopes, fatty acids, and shell morphometry, an international team of researchers—including experts from UFF, UERJ, and Sorbonne University—developed a precise framework to track nutrient pollution and human impacts on marine environments. Discover how nature helps us measure and mitigate pollution along tropical coastlines.
+A collaborative study published in *Marine Environmental Research* highlights the brown mussel (*Perna perna*) as a powerful bioindicator for monitoring eutrophication in tropical coastal ecosystems. By combining stable isotopes, fatty acids, and shell morphometry, an international team of researchers—including experts from UFF, UERJ, and the Museum National d'Histoire Naturelle in Paris — developed a precise framework to track nutrient pollution and human impacts on marine environments. Discover how nature helps us measure and mitigate pollution along tropical coastlines.
 
 <a href="https://doi.org/10.1016/j.marenvres.2026.108059" target="_blank" rel="noopener">📑Read the full paper 10.1029/2026JG009956</a>
