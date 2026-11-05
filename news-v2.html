@@ -239,7 +239,7 @@
           }
         }
 
-        allNewsData.sort((a, b) => new Date(b.rawDate) - new Date(a.rawDate));
+        allNewsData.sort((a, b) => b.rawDate.localeCompare(a.rawDate));
 
         // Cria os botões de filtro
         const years = [...new Set(allNewsData.map(news => news.year))].sort((a, b) => b - a);
