@@ -14,19 +14,20 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
   
-  <style>
+   <style>
     /* Estilos exclusivos para deixar a lista de notícias do CMS elegante */
     .news-cms-card {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 40px;
+      /* A MÁGICA ACONTECE AQUI: A imagem ocupa 35% e o texto 65% */
+      grid-template-columns: 35% 1fr; 
+      gap: 32px;
       background: #ffffff;
       border-radius: 16px;
-      padding: 32px;
+      padding: 24px 32px; /* Menos padding em cima/baixo, mais nas laterais */
       margin-bottom: 40px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.04);
       border: 1px solid #eaeaea;
-      align-items: start;
+      align-items: center; /* Centraliza a imagem verticalmente com o texto */
     }
 
     .news-cms-card.no-image {
@@ -35,51 +36,56 @@
 
     .news-cms-image {
       width: 100%;
-      aspect-ratio: 4 / 3; /* Mantém a imagem equilibrada */
+      /* Força um formato de paisagem (16:10) para não ficar muito alta */
+      aspect-ratio: 16 / 10; 
       object-fit: cover;
       border-radius: 12px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.08);
     }
 
     .news-cms-content {
       display: flex;
       flex-direction: column;
+      justify-content: center; /* Centraliza o texto verticalmente em relação à imagem */
     }
 
     .news-cms-date {
       color: var(--color-primary);
       font-weight: 700;
       text-transform: uppercase;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       letter-spacing: 1px;
-      margin-bottom: 12px;
+      margin-bottom: 8px;
     }
 
     .news-cms-title {
-      font-size: 1.6rem;
+      font-size: 1.5rem;
       color: var(--color-text);
       margin-top: 0;
-      margin-bottom: 16px;
+      margin-bottom: 12px;
       line-height: 1.3;
     }
 
     .news-cms-body {
-      font-size: 1rem;
-      line-height: 1.7;
+      font-size: 0.95rem;
+      line-height: 1.6;
       color: var(--color-text-light);
     }
 
+    /* Estilo para as imagens que o professor inserir no meio do texto */
     .news-cms-body img {
       max-width: 100%;
       border-radius: 8px;
       margin-top: 16px;
     }
 
-    /* Responsividade: em telas de celular, a imagem fica em cima do texto */
+    /* Responsividade: em telas de celular ou tablets, a imagem vai para cima */
     @media (max-width: 800px) {
       .news-cms-card {
         grid-template-columns: 1fr;
         padding: 20px;
+        gap: 20px;
+        align-items: start;
       }
     }
   </style>
