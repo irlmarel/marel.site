@@ -1,6 +1,6 @@
 ---
 title: Video Report in the French newspaper Le Monde
-date: 2026-11-04
+date: 2026-06-26
 subtitle: "Pollution Marine: le défi de Rio"
 image: /img/news/news-lemonde.jpg
 ---
