@@ -14,20 +14,50 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
   
-   <style>
-    /* Estilos exclusivos para deixar a lista de notícias do CMS elegante */
+  <style>
+    /* Botões de Filtro de Ano */
+    .news-filters {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      padding: 8px 20px;
+      border-radius: 30px;
+      border: 2px solid var(--color-primary);
+      background: transparent;
+      color: var(--color-primary);
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-size: 0.95rem;
+    }
+
+    .filter-btn:hover {
+      background: rgba(27, 122, 140, 0.1);
+    }
+
+    .filter-btn.active {
+      background: var(--color-primary);
+      color: white;
+    }
+
+    /* Design da Notícia (Imagem Menor) */
     .news-cms-card {
       display: grid;
-      /* A MÁGICA ACONTECE AQUI: A imagem ocupa 35% e o texto 65% */
-      grid-template-columns: 35% 1fr; 
-      gap: 32px;
+      /* MÁGICA AQUI: Imagem ocupa 25%, texto 75% */
+      grid-template-columns: 25% 1fr; 
+      gap: 24px;
       background: #ffffff;
-      border-radius: 16px;
-      padding: 24px 32px; /* Menos padding em cima/baixo, mais nas laterais */
-      margin-bottom: 40px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin-bottom: 24px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.04);
       border: 1px solid #eaeaea;
-      align-items: center; /* Centraliza a imagem verticalmente com o texto */
+      align-items: center; 
     }
 
     .news-cms-card.no-image {
@@ -36,33 +66,32 @@
 
     .news-cms-image {
       width: 100%;
-      /* Força um formato de paisagem (16:10) para não ficar muito alta */
-      aspect-ratio: 16 / 10; 
+      aspect-ratio: 16 / 9; /* Formato de miniatura */
       object-fit: cover;
-      border-radius: 12px;
-      box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
     }
 
     .news-cms-content {
       display: flex;
       flex-direction: column;
-      justify-content: center; /* Centraliza o texto verticalmente em relação à imagem */
+      justify-content: center;
     }
 
     .news-cms-date {
       color: var(--color-primary);
       font-weight: 700;
       text-transform: uppercase;
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       letter-spacing: 1px;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
 
     .news-cms-title {
-      font-size: 1.5rem;
+      font-size: 1.3rem;
       color: var(--color-text);
       margin-top: 0;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
       line-height: 1.3;
     }
 
@@ -70,22 +99,24 @@
       font-size: 0.95rem;
       line-height: 1.6;
       color: var(--color-text-light);
+      display: -webkit-box;
+      -webkit-line-clamp: 3; /* Limita o texto a 3 linhas na prévia */
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
 
-    /* Estilo para as imagens que o professor inserir no meio do texto */
     .news-cms-body img {
-      max-width: 100%;
-      border-radius: 8px;
-      margin-top: 16px;
+      display: none; /* Oculta imagens que estão dentro do texto para não poluir */
     }
 
-    /* Responsividade: em telas de celular ou tablets, a imagem vai para cima */
+    /* Em telas pequenas, volta a ficar empilhado */
     @media (max-width: 800px) {
       .news-cms-card {
         grid-template-columns: 1fr;
-        padding: 20px;
-        gap: 20px;
-        align-items: start;
+        padding: 16px;
+      }
+      .news-cms-body {
+        -webkit-line-clamp: 4; /* Mostra um pouco mais de texto no celular */
       }
     }
   </style>
@@ -113,7 +144,7 @@
     </div>
   </header>
 
-  <!-- PAGE HEADER (O topo azul padrão do site) -->
+  <!-- PAGE HEADER -->
   <section class="page-header">
     <div class="container">
       <h1>News</h1>
@@ -123,8 +154,18 @@
 
   <!-- CONTEÚDO DAS NOTÍCIAS -->
   <section class="section" id="main" style="background-color: #f8fafc;">
-    <div class="container" id="news-container">
-      <p style="text-align:center; color: gray;">Loading news...</p>
+    <div class="container">
+      
+      <!-- Filtros de Ano (gerados automaticamente pelo script) -->
+      <div class="news-filters" id="news-filters">
+        <!-- Os botões aparecerão aqui -->
+      </div>
+
+      <!-- Lista de Notícias -->
+      <div id="news-container">
+        <p style="text-align:center; color: gray;">Loading news...</p>
+      </div>
+
     </div>
   </section>
 
@@ -163,8 +204,12 @@
   <!-- SCRIPT PARA CARREGAR AS NOTÍCIAS -->
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <script>
+    let allNewsData = []; // Armazena todas as notícias para filtrar depois
+
     async function loadNews() {
       const container = document.getElementById('news-container');
+      const filtersContainer = document.getElementById('news-filters');
+      
       try {
         const response = await fetch('https://api.github.com/repos/irlmarel/marel.site/contents/content/news');
         const files = await response.json();
@@ -174,13 +219,11 @@
           return;
         }
 
-        let htmlContent = '';
-
+        // 1. Baixar e processar todos os arquivos
         for (const file of files) {
           if (file.name.endsWith('.md')) {
             const fileRes = await fetch(file.download_url);
             const text = await fileRes.text();
-            
             const match = text.match(/^---\r?\n([\s\S]+?)\r?\n---\r?\n([\s\S]*)$/);
             
             if (match) {
@@ -191,35 +234,86 @@
               const title = titleMatch ? titleMatch[1].trim() : 'No title';
               
               const dateMatch = header.match(/date:\s*['"]?(\d{4}-\d{2}-\d{2})['"]?/);
-              const date = dateMatch ? new Date(dateMatch[1] + 'T12:00:00').toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) : '';
+              const fullDate = dateMatch ? dateMatch[1] : '';
+              const year = fullDate ? fullDate.split('-')[0] : 'Unknown';
+              const formattedDate = fullDate ? new Date(fullDate + 'T12:00:00').toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) : '';
               
               const imgMatch = header.match(/image:\s*['"]?([^'"\r\n]+)['"]?/);
               const imgSrc = imgMatch ? imgMatch[1].trim() : null;
-              
-              const imgHtml = imgSrc ? `<div><img src="${imgSrc}" class="news-cms-image" onerror="this.style.display='none'"></div>` : '';
-              const cardClass = imgSrc ? 'news-cms-card' : 'news-cms-card no-image';
 
-              htmlContent += `
-                <article class="${cardClass}">
-                  ${imgHtml}
-                  <div class="news-cms-content">
-                    <div class="news-cms-date">${date}</div>
-                    <h2 class="news-cms-title">${title}</h2>
-                    <div class="news-cms-body">
-                      ${marked.parse(body)}
-                    </div>
-                  </div>
-                </article>
-              `;
+              allNewsData.push({
+                title,
+                year,
+                formattedDate,
+                imgSrc,
+                body: marked.parse(body),
+                rawDate: fullDate
+              });
             }
           }
         }
+
+        // 2. Ordenar da mais recente para a mais antiga
+        allNewsData.sort((a, b) => new Date(b.rawDate) - new Date(a.rawDate));
+
+        // 3. Criar os botões de filtro por ano
+        const years = [...new Set(allNewsData.map(news => news.year))].sort((a, b) => b - a); // Pega os anos únicos, do maior pro menor
         
-        container.innerHTML = htmlContent || '<p style="text-align:center;">No news found.</p>';
+        let filterHTML = `<button class="filter-btn active" onclick="renderNews('All', this)">All News</button>`;
+        years.forEach(year => {
+          filterHTML += `<button class="filter-btn" onclick="renderNews('${year}', this)">${year}</button>`;
+        });
+        filtersContainer.innerHTML = filterHTML;
+
+        // 4. Renderizar todas as notícias inicialmente
+        renderNews('All');
+
       } catch (error) {
         console.error("Error loading news:", error);
         container.innerHTML = '<p style="text-align:center; color: red;">Error loading news from server.</p>';
       }
+    }
+
+    // Função que desenha as notícias na tela (filtradas por ano)
+    function renderNews(filterYear, btnElement = null) {
+      const container = document.getElementById('news-container');
+      
+      // Atualiza a cor do botão clicado
+      if (btnElement) {
+        document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+        btnElement.classList.add('active');
+      }
+
+      // Filtra as notícias
+      const newsToRender = filterYear === 'All' 
+        ? allNewsData 
+        : allNewsData.filter(news => news.year === filterYear);
+
+      if (newsToRender.length === 0) {
+        container.innerHTML = `<p style="text-align:center;">No news found for ${filterYear}.</p>`;
+        return;
+      }
+
+      let htmlContent = '';
+      newsToRender.forEach(news => {
+        const imgHtml = news.imgSrc ? `<div><img src="${news.imgSrc}" class="news-cms-image" onerror="this.parentElement.style.display='none'"></div>` : '';
+        const cardClass = news.imgSrc ? 'news-cms-card' : 'news-cms-card no-image';
+
+        htmlContent += `
+          <article class="${cardClass}">
+            ${imgHtml}
+            <div class="news-cms-content">
+              <div class="news-cms-date">${news.formattedDate}</div>
+              <h2 class="news-cms-title">${news.title}</h2>
+              <div class="news-cms-body">
+                ${news.body}
+              </div>
+            </div>
+          </article>
+        `;
+      });
+
+      container.innerHTML = htmlContent;
     }
 
     loadNews();
