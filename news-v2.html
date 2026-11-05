@@ -20,7 +20,7 @@
       display: flex;
       justify-content: center;
       gap: 12px;
-      margin-bottom: 40px;
+      margin-bottom: 48px;
       flex-wrap: wrap;
     }
 
@@ -45,19 +45,19 @@
       color: white;
     }
 
-    /* Design da Notícia (Imagem Menor) */
+    /* Layout da Notícia (Idêntico ao news.html) */
     .news-cms-card {
       display: grid;
-      /* MÁGICA AQUI: Imagem ocupa 25%, texto 75% */
-      grid-template-columns: 25% 1fr; 
-      gap: 24px;
-      background: #ffffff;
-      border-radius: 12px;
-      padding: 20px 24px;
-      margin-bottom: 24px;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.04);
-      border: 1px solid #eaeaea;
-      align-items: center; 
+      grid-template-columns: 1fr 1fr; /* 50% imagem, 50% texto */
+      gap: 40px;
+      align-items: start;
+      margin-bottom: 64px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid #E1E8EA; /* Linha divisória entre notícias */
+    }
+
+    .news-cms-card:last-child {
+      border-bottom: none; /* Remove a linha da última notícia */
     }
 
     .news-cms-card.no-image {
@@ -66,57 +66,44 @@
 
     .news-cms-image {
       width: 100%;
-      aspect-ratio: 16 / 9; /* Formato de miniatura */
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.12);
       object-fit: cover;
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
     }
 
     .news-cms-content {
       display: flex;
       flex-direction: column;
-      justify-content: center;
     }
 
     .news-cms-date {
       color: var(--color-primary);
-      font-weight: 700;
+      font-weight: 600;
       text-transform: uppercase;
-      font-size: 0.75rem;
-      letter-spacing: 1px;
-      margin-bottom: 6px;
+      font-size: 0.85rem;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
     }
 
     .news-cms-title {
-      font-size: 1.3rem;
+      font-size: 1.8rem;
       color: var(--color-text);
       margin-top: 0;
-      margin-bottom: 10px;
+      margin-bottom: 16px;
       line-height: 1.3;
     }
 
     .news-cms-body {
-      font-size: 0.95rem;
-      line-height: 1.6;
+      font-size: 1rem;
+      line-height: 1.7;
       color: var(--color-text-light);
-      display: -webkit-box;
-      -webkit-line-clamp: 3; /* Limita o texto a 3 linhas na prévia */
-      -webkit-box-orient: vertical;
-      overflow: hidden;
     }
 
-    .news-cms-body img {
-      display: none; /* Oculta imagens que estão dentro do texto para não poluir */
-    }
-
-    /* Em telas pequenas, volta a ficar empilhado */
+    /* Responsividade para celular */
     @media (max-width: 800px) {
       .news-cms-card {
         grid-template-columns: 1fr;
-        padding: 16px;
-      }
-      .news-cms-body {
-        -webkit-line-clamp: 4; /* Mostra um pouco mais de texto no celular */
+        gap: 20px;
       }
     }
   </style>
@@ -153,10 +140,10 @@
   </section>
 
   <!-- CONTEÚDO DAS NOTÍCIAS -->
-  <section class="section" id="main" style="background-color: #f8fafc;">
+  <section class="section" id="main">
     <div class="container">
       
-      <!-- Filtros de Ano (gerados automaticamente pelo script) -->
+      <!-- Filtros de Ano -->
       <div class="news-filters" id="news-filters">
         <!-- Os botões aparecerão aqui -->
       </div>
@@ -204,7 +191,7 @@
   <!-- SCRIPT PARA CARREGAR AS NOTÍCIAS -->
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <script>
-    let allNewsData = []; // Armazena todas as notícias para filtrar depois
+    let allNewsData = []; 
 
     async function loadNews() {
       const container = document.getElementById('news-container');
@@ -219,7 +206,6 @@
           return;
         }
 
-        // 1. Baixar e processar todos os arquivos
         for (const file of files) {
           if (file.name.endsWith('.md')) {
             const fileRes = await fetch(file.download_url);
@@ -253,19 +239,16 @@
           }
         }
 
-        // 2. Ordenar da mais recente para a mais antiga
         allNewsData.sort((a, b) => new Date(b.rawDate) - new Date(a.rawDate));
 
-        // 3. Criar os botões de filtro por ano
-        const years = [...new Set(allNewsData.map(news => news.year))].sort((a, b) => b - a); // Pega os anos únicos, do maior pro menor
-        
+        // Cria os botões de filtro
+        const years = [...new Set(allNewsData.map(news => news.year))].sort((a, b) => b - a);
         let filterHTML = `<button class="filter-btn active" onclick="renderNews('All', this)">All News</button>`;
         years.forEach(year => {
           filterHTML += `<button class="filter-btn" onclick="renderNews('${year}', this)">${year}</button>`;
         });
         filtersContainer.innerHTML = filterHTML;
 
-        // 4. Renderizar todas as notícias inicialmente
         renderNews('All');
 
       } catch (error) {
@@ -274,17 +257,14 @@
       }
     }
 
-    // Função que desenha as notícias na tela (filtradas por ano)
     function renderNews(filterYear, btnElement = null) {
       const container = document.getElementById('news-container');
       
-      // Atualiza a cor do botão clicado
       if (btnElement) {
         document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
         btnElement.classList.add('active');
       }
 
-      // Filtra as notícias
       const newsToRender = filterYear === 'All' 
         ? allNewsData 
         : allNewsData.filter(news => news.year === filterYear);
