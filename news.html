@@ -4,37 +4,117 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="News and events from the IRL MAREL - Marine Eutrophication Lab.">
-  <meta name="keywords" content="MAREL news, events, PhD defense, fieldwork, seminars, publications">
   <meta name="author" content="IRL MAREL">
-
-  <meta property="og:title" content="News - IRL MAREL">
-  <meta property="og:description" content="Latest news and events from the IRL MAREL.">
-  <meta property="og:image" content="img/logo-marel-horizontal.png">
-  <meta property="og:type" content="website">
 
   <title>News - IRL MAREL</title>
 
-  <link rel="icon" type="image/png" href="img/logo-icon.png">
-
+  <link rel="icon" type="image/png" href="img/logo-marel.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-
   <link rel="stylesheet" href="css/style.css">
+  
+  <style>
+    /* Botões de Filtro de Ano */
+    .news-filters {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 48px;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      padding: 8px 20px;
+      border-radius: 30px;
+      border: 2px solid var(--color-primary);
+      background: transparent;
+      color: var(--color-primary);
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-size: 0.95rem;
+    }
+
+    .filter-btn:hover {
+      background: rgba(27, 122, 140, 0.1);
+    }
+
+    .filter-btn.active {
+      background: var(--color-primary);
+      color: white;
+    }
+
+    /* Layout da Notícia (Idêntico ao news.html) */
+    .news-cms-card {
+      display: grid;
+      grid-template-columns: 1fr 1fr; /* 50% imagem, 50% texto */
+      gap: 40px;
+      align-items: start;
+      margin-bottom: 64px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid #E1E8EA; /* Linha divisória entre notícias */
+    }
+
+    .news-cms-card:last-child {
+      border-bottom: none; /* Remove a linha da última notícia */
+    }
+
+    .news-cms-card.no-image {
+      grid-template-columns: 1fr;
+    }
+
+    .news-cms-image {
+      width: 100%;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+      object-fit: cover;
+    }
+
+    .news-cms-content {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .news-cms-date {
+      color: var(--color-primary);
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+
+    .news-cms-title {
+      font-size: 1.8rem;
+      color: var(--color-text);
+      margin-top: 0;
+      margin-bottom: 16px;
+      line-height: 1.3;
+    }
+
+    .news-cms-body {
+      font-size: 1rem;
+      line-height: 1.7;
+      color: var(--color-text-light);
+    }
+
+    /* Responsividade para celular */
+    @media (max-width: 800px) {
+      .news-cms-card {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+    }
+  </style>
 </head>
 <body>
-
-  <a href="#main" class="skip-link">Skip to main content</a>
 
   <!-- HEADER -->
   <header class="header">
     <div class="header__inner">
       <a href="index.html" class="header__logo" aria-label="MAREL Home">
         <img src="img/logo-marel-horizontal.png" alt="MAREL logo">
-        <div class="header__logo-text">
-          <strong>MAREL</strong>
-          <span>Marine Eutrophication Lab</span>
-        </div>
       </a>
       <button class="header__toggle" aria-label="Toggle navigation" aria-expanded="false">
         <span></span><span></span><span></span>
@@ -59,71 +139,24 @@
     </div>
   </section>
 
-  <!-- NEWS LIST -->
+  <!-- CONTEÚDO DAS NOTÍCIAS -->
   <section class="section" id="main">
     <div class="container">
+      
+      <!-- Filtros de Ano -->
+      <div class="news-filters" id="news-filters">
+        <!-- Os botões aparecerão aqui -->
+      </div>
 
-            <!-- NOTÍCIA — Jornada Científica -->
-      <article class="grid grid--2" style="align-items:start; gap:40px; margin-bottom:64px;">
+      <!-- Lista de Notícias -->
+      <div id="news-container">
+        <p style="text-align:center; color: gray;">Loading news...</p>
+      </div>
 
-        <div>
-          <img src="img/news/news-journey.jpg" 
-               alt="MAREL Scientific Journey" 
-               style="border-radius:16px; box-shadow: 0 10px 30px rgba(0,0,0,0.12);">
-        </div>
-
-        <div>
-          <span class="card__meta">17 November 2026</span>
-          <h2>MAREL Scientific Journey</h2>
-          
-          <p>
-            On November 17, 2026, the IRL MAREL held its Scientific Journey (Journée Scientifique), bringing together researchers, students and collaborators from CNRS, UERJ and UFF.
-          </p>
-          
-          <p>
-            The event featured presentations from invited speakers and discussions on the progress of the laboratory's three scientific themes. It was an excellent opportunity to strengthen collaborations and share the latest results from our research on tropical coastal ecosystems.
-          </p>
-          
-          <p>
-            We thank all participants and speakers for their valuable contributions.
-          </p>
-        </div>
-
-      </article>
-
-      <!-- NOTÍCIA — Le Monde -->
-      <article class="grid grid--2" style="align-items:start; gap:40px; margin-bottom:64px;">
-
-        <!-- Imagem com link -->
-        <div>
-          <a href="https://www.lemonde.fr/sciences/video/2026/06/26/alerte-a-la-pollution-de-la-baie-de-rio-de-janeiro_6715853_1650684.html" target="_blank" rel="noopener" style="display: block; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.12); transition: transform 0.25s ease, box-shadow 0.25s ease;" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 15px 35px rgba(0,0,0,0.2)'" onmouseout="this.style.transform='none'; this.style.boxShadow='0 10px 30px rgba(0,0,0,0.12)'">
-            <img src="img/news/news-lemonde.jpg" alt="Video report on Guanabara Bay by Le Monde" style="width: 100%; display: block;">
-          </a>
-        </div>
-
-        <div>
-          <span class="card__meta">26 June 2026</span>
-          <h2>Video Report in the French newspaper Le Monde</h2>
-          <p>
-            <strong>Pollution Marine: le défi de Rio</strong>
-          </p>
-          <p style="font-style: italic; border-left: 3px solid var(--color-primary); padding-left: 16px;">
-            “A CNRS Image © video report on the question of eutrophication of Guanabara Bay, with interviews of Gleyci Moser, Gwenaël Abril and Thais Erbas from the MAREL.”
-          </p>
-          
-          <div class="mt-3">
-            <a href="https://www.lemonde.fr/sciences/video/2026/06/26/alerte-a-la-pollution-de-la-baie-de-rio-de-janeiro_6715853_1650684.html" target="_blank" rel="noopener" class="btn btn--primary">
-              ▶ Video Report
-            </a>
-          </div>
-        </div>
-
-      </article>
-     
     </div>
   </section>
 
-  <!-- FOOTER (Já atualizado com as logos clicáveis e maiores) -->
+  <!-- FOOTER -->
   <footer class="footer">
     <div class="container">
       <div class="footer__grid">
@@ -137,15 +170,15 @@
             UERJ Campus Maracanã <br>
             Rua São Francisco Xavier, 524 <br>
             4º Andar, sala 4017E, CEP 20550-900<br>
-            Rio de Janeiro, Brazil.<br>         
+            Rio de Janeiro, Brazil.
           </p>
         </div>
         <div>
           <h4>Institutions</h4>
           <div class="footer__logos">
-            <a href="https://www.cnrs.fr/" target="_blank" rel="noopener" title="CNRS"><img src="img/logos/cnrs.png" alt="CNRS"></a>
-            <a href="https://www.uerj.br/" target="_blank" rel="noopener" title="UERJ"><img src="img/logos/uerj.png" alt="UERJ"></a>
-            <a href="https://www.uff.br/" target="_blank" rel="noopener" title="UFF"><img src="img/logos/uff.png" alt="UFF"></a>
+            <a href="https://www.cnrs.fr/" target="_blank" rel="noopener"><img src="img/logos/cnrs.png" alt="CNRS"></a>
+            <a href="https://www.uerj.br/" target="_blank" rel="noopener"><img src="img/logos/uerj.png" alt="UERJ"></a>
+            <a href="https://www.uff.br/" target="_blank" rel="noopener"><img src="img/logos/uff.png" alt="UFF"></a>
           </div>
         </div>
       </div>
@@ -155,7 +188,125 @@
     </div>
   </footer>
 
-  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  <!-- SCRIPT PARA CARREGAR AS NOTÍCIAS -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script>
+    let allNewsData = []; 
+
+    async function loadNews() {
+      const container = document.getElementById('news-container');
+      const filtersContainer = document.getElementById('news-filters');
+      
+      try {
+        // Busca a lista de arquivos no GitHub
+        const response = await fetch('https://api.github.com/repos/irlmarel/marel.site/contents/content/news');
+        const files = await response.json();
+        
+        if (!files || files.length === 0) {
+          container.innerHTML = '<p style="text-align:center;">No news published yet.</p>';
+          return;
+        }
+
+        for (const file of files) {
+          if (file.name.endsWith('.md')) {
+            const fileRes = await fetch(file.download_url);
+            const text = await fileRes.text();
+            
+            // Separa o cabeçalho (título, data) do corpo da notícia
+            const match = text.match(/^---\r?\n([\s\S]+?)\r?\n---\r?\n([\s\S]*)$/);
+            
+            if (match) {
+              const header = match[1];
+              const body = match[2];
+              
+              const titleMatch = header.match(/title:\s*['"]?([^'"\r\n]+)['"]?/);
+              const title = titleMatch ? titleMatch[1].trim() : 'No title';
+              
+              // Data do evento (para mostrar na tela)
+              const dateMatch = header.match(/date:\s*['"]?(\d{4}-\d{2}-\d{2})['"]?/);
+              const fullDate = dateMatch ? dateMatch[1] : '';
+              const year = fullDate ? fullDate.split('-')[0] : 'Unknown';
+              const formattedDate = fullDate ? new Date(fullDate + 'T12:00:00').toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) : '';
+              
+              const imgMatch = header.match(/image:\s*['"]?([^'"\r\n]+)['"]?/);
+              const imgSrc = imgMatch ? imgMatch[1].trim() : null;
+
+              allNewsData.push({
+                title,
+                year,
+                formattedDate,
+                imgSrc,
+                body: marked.parse(body),
+                // O nome do arquivo gerado pelo CMS começa com a data de publicação exata (ex: 2026-11-17-...)
+                publicationDate: file.name 
+              });
+            }
+          }
+        }
+
+        // ORDENAÇÃO: Publicações mais recentes primeiro (Z para A)
+        allNewsData.sort((a, b) => b.publicationDate.localeCompare(a.publicationDate));
+
+        // Cria os botões de filtro por ano
+        const years = [...new Set(allNewsData.map(news => news.year))].sort((a, b) => b - a);
+        let filterHTML = `<button class="filter-btn active" onclick="renderNews('All', this)">All News</button>`;
+        years.forEach(year => {
+          filterHTML += `<button class="filter-btn" onclick="renderNews('${year}', this)">${year}</button>`;
+        });
+        filtersContainer.innerHTML = filterHTML;
+
+        // Renderiza todas as notícias
+        renderNews('All');
+
+      } catch (error) {
+        console.error("Error loading news:", error);
+        container.innerHTML = '<p style="text-align:center; color: red;">Error loading news from server.</p>';
+      }
+    }
+
+    // Função que desenha as notícias na tela
+    function renderNews(filterYear, btnElement = null) {
+      const container = document.getElementById('news-container');
+      
+      if (btnElement) {
+        document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+        btnElement.classList.add('active');
+      }
+
+      const newsToRender = filterYear === 'All' 
+        ? allNewsData 
+        : allNewsData.filter(news => news.year === filterYear);
+
+      if (newsToRender.length === 0) {
+        container.innerHTML = `<p style="text-align:center;">No news found for ${filterYear}.</p>`;
+        return;
+      }
+
+      let htmlContent = '';
+      newsToRender.forEach(news => {
+        const imgHtml = news.imgSrc ? `<div><img src="${news.imgSrc}" class="news-cms-image" onerror="this.parentElement.style.display='none'"></div>` : '';
+        const cardClass = news.imgSrc ? 'news-cms-card' : 'news-cms-card no-image';
+
+        htmlContent += `
+          <article class="${cardClass}">
+            ${imgHtml}
+            <div class="news-cms-content">
+              <div class="news-cms-date">${news.formattedDate}</div>
+              <h2 class="news-cms-title">${news.title}</h2>
+              <div class="news-cms-body">
+                ${news.body}
+              </div>
+            </div>
+          </article>
+        `;
+      });
+
+      container.innerHTML = htmlContent;
+    }
+
+    loadNews();
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
   <script src="js/script.js"></script>
 </body>
 </html>
