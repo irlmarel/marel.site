@@ -198,6 +198,7 @@
       const filtersContainer = document.getElementById('news-filters');
       
       try {
+        // Busca a lista de arquivos no GitHub
         const response = await fetch('https://api.github.com/repos/irlmarel/marel.site/contents/content/news');
         const files = await response.json();
         
@@ -210,6 +211,8 @@
           if (file.name.endsWith('.md')) {
             const fileRes = await fetch(file.download_url);
             const text = await fileRes.text();
+            
+            // Separa o cabeçalho (título, data) do corpo da notícia
             const match = text.match(/^---\r?\n([\s\S]+?)\r?\n---\r?\n([\s\S]*)$/);
             
             if (match) {
@@ -219,6 +222,7 @@
               const titleMatch = header.match(/title:\s*['"]?([^'"\r\n]+)['"]?/);
               const title = titleMatch ? titleMatch[1].trim() : 'No title';
               
+              // Data do evento (para mostrar na tela)
               const dateMatch = header.match(/date:\s*['"]?(\d{4}-\d{2}-\d{2})['"]?/);
               const fullDate = dateMatch ? dateMatch[1] : '';
               const year = fullDate ? fullDate.split('-')[0] : 'Unknown';
@@ -233,15 +237,17 @@
                 formattedDate,
                 imgSrc,
                 body: marked.parse(body),
-                rawDate: fullDate
+                // O nome do arquivo gerado pelo CMS começa com a data de publicação exata (ex: 2026-11-17-...)
+                publicationDate: file.name 
               });
             }
           }
         }
 
-        allNewsData.sort((a, b) => b.rawDate.localeCompare(a.rawDate));
+        // ORDENAÇÃO: Publicações mais recentes primeiro (Z para A)
+        allNewsData.sort((a, b) => b.publicationDate.localeCompare(a.publicationDate));
 
-        // Cria os botões de filtro
+        // Cria os botões de filtro por ano
         const years = [...new Set(allNewsData.map(news => news.year))].sort((a, b) => b - a);
         let filterHTML = `<button class="filter-btn active" onclick="renderNews('All', this)">All News</button>`;
         years.forEach(year => {
@@ -249,6 +255,7 @@
         });
         filtersContainer.innerHTML = filterHTML;
 
+        // Renderiza todas as notícias
         renderNews('All');
 
       } catch (error) {
@@ -257,6 +264,7 @@
       }
     }
 
+    // Função que desenha as notícias na tela
     function renderNews(filterYear, btnElement = null) {
       const container = document.getElementById('news-container');
       
