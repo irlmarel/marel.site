@@ -245,7 +245,11 @@
         }
 
         // ORDENAÇÃO: Publicações mais recentes primeiro (Z para A)
-        allNewsData.sort((a, b) => b.publicationDate.localeCompare(a.publicationDate));
+        allNewsData.sort((a, b) => {
+  let dateA = new Date(a.formattedDate.split(' ').reverse().join('-'));
+  let dateB = new Date(b.formattedDate.split(' ').reverse().join('-'));
+  return dateB - dateA;
+});
 
         // Cria os botões de filtro por ano
         const years = [...new Set(allNewsData.map(news => news.year))].sort((a, b) => b - a);
