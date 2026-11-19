@@ -17,3 +17,15 @@ collections:
       - {label: "Subtítulo (opcional)", name: "subtitle", widget: "string", required: false}
       - {label: "Foto da Notícia", name: "image", widget: "image", required: false}
       - {label: "Texto da Notícia", name: "body", widget: "markdown"}
+  - name: "publications"
+    label: "Publicações (Publications)"
+    folder: "content/publications"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - {label: "Título do Artigo", name: "title", widget: "string"}
+      - {label: "Autores", name: "authors", widget: "string"}
+      - {label: "Revista / Periódico", name: "journal", widget: "string"}
+      - {label: "Ano", name: "year", widget: "string"}
+      - {label: "DOI (Link)", name: "doi", widget: "string", required: false}
+      - {label: "Resumo (Opcional)", name: "abstract", widget: "text", required: false}
