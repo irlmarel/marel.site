@@ -1,6 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <style>
+    /* Corrige o corte de texto nos cards de publicação */
+    #publications-container .publication {
+      word-wrap: break-word;      /* Permite que palavras longas quebrem */
+      overflow-wrap: break-word;  /* Garante a quebra em qualquer navegador */
+      white-space: normal;        /* Impede que o texto force uma linha única */
+    }
+
+    #publications-container .publication h3 {
+      line-height: 1.4;           /* Melhora o espaçamento entre as linhas do título */
+      font-size: 1.15rem;         /* Ajusta o tamanho da fonte do título */
+    }
+
+    #publications-container .publication p {
+      line-height: 1.5;
+    }
+  </style>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Scientific publications of the IRL MAREL - Marine Eutrophication Lab.">
