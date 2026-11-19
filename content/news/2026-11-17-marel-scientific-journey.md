@@ -1,7 +1,7 @@
 ---
 title: MAREL Scientific Journey
 date: 2026-11-17
-image: /img/news/news-seminar.jpg
+image: /img/news/foto-marel-jornada-cientifica.jpg
 ---
 On November 17, 2026, the IRL MAREL held its Scientific Journey (Journée Scientifique), bringing together researchers, students and collaborators from CNRS, UERJ and UFF.
 
